@@ -13,22 +13,25 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.flours = [
-      { name: 'White Flour', amount: 350 },
-      { name: 'Spelt Flour', amount: 150 },
+      { name: 'White Flour', amount: 355, hydration: 78 },
+      { name: 'Spelt Flour', amount: 150, hydration: 60 },
     ]
   }
 
-  add(name: string, amount: number): void {
-    if (name && amount) {
-      this.flours.push({ name, amount } as Flour);
+  add(name: string, amount: number, hydration: number): void {
+    if (name && amount && hydration) {
+      this.flours.push({ name, amount, hydration } as Flour);
     }
   }
 
-  remove(name: string) : void {
+  remove(name: string): void {
     this.flours = this.flours.filter(flour => flour.name != name);
   }
 
-  total(): number {
+  totalDry(): number {
     return this.flours.reduce((total, flour) => total + flour.amount, 0);
   }
- }
+  totalWet(): number {
+    return this.flours.reduce((total, flour) => total + (flour.hydration * .01) * flour.amount, 0);
+  }
+}

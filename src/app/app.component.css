@@ -1,12 +1,17 @@
+* {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 ul {
   padding: 0;
   list-style: none;
 }
 
-li label {
-  margin-right: 12px;
-}
-
 .delete-button {
   font-weight: bold;
+}
+
+.total {
+  font-size: large;
+  margin: 12px 0;
 }
