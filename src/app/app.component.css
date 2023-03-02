@@ -1,0 +1,12 @@
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+li label {
+  margin-right: 12px;
+}
+
+.delete-button {
+  font-weight: bold;
+}
