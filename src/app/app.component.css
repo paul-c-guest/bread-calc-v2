@@ -7,8 +7,9 @@ ul {
   list-style: none;
 }
 
-.delete-button {
+.action-button {
   font-weight: bold;
+  width: 26px;
 }
 
 .total {

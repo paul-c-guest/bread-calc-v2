@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.flours = [
-      { name: 'White Flour', amount: 355, hydration: 78 },
+      { name: 'White Flour', amount: 350, hydration: 80 },
       { name: 'Spelt Flour', amount: 150, hydration: 60 },
     ]
   }

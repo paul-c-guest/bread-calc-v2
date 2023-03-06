@@ -1,31 +1,37 @@
 <h3>{{title}}</h3>
 
-<ul>
-  <li *ngFor="let flour of flours">
-    <div>
-      <label for="flourName">{{flour.name}} </label>
-      <input id="flourName" type="number" value="{{flour.amount}}" min="0" step="5" [(ngModel)]="flour.amount" />
-      <input type="number" value="{{flour.hydration}}" min="0" max="200" step="1" [(ngModel)]="flour.hydration" />
-      <button class="delete-button" type="button" (click)="remove(flour.name)">X</button>
-    </div>
-  </li>
-</ul>
+<table>
+  <tr *ngFor="let flour of flours">
+    <td class="table-cell-name">
+      {{flour.name}}
+    </td>
+    <td class="table-cell-amount">
+      <input type="number" value="{{flour.amount}}" min="0" step="5" [(ngModel)]="flour.amount" />
+    </td>
+    <td class="table-cell-hydration">
+      <input type="number" value="{{flour.hydration}}" min="0" max="200" [(ngModel)]="flour.hydration" />
+    </td>
+    <td>
+      <button class="action-button" type="button" (click)="remove(flour.name)">&ndash;</button>
+    </td>
+  </tr>
+  <tr>
+<td>
+  <input placeholder="new flour" #newFlourName type="text" />
+</td>
+<td>
+  <input placeholder="amount" #newFlourAmount type="number" min="0" />
+</td>
+<td>
+  <input placeholder="hydration" #newFlourHydration type="number" min="0" max="200" value="65" step="1" />
+</td>
+<td>
+  <button class="action-button" type="button" (click)="add(newFlourName.value, newFlourAmount.valueAsNumber, newFlourHydration.valueAsNumber);newFlourName.value = '';newFlourAmount.value = '';newFlourHydration.value='65'">+</button>
+</td>
+  </tr>
+</table>
 
 <div class="total">
   Total dry: {{ totalDry() | number }}, wet: {{ totalWet() | number }}
 </div>
 
-<div>
-  <input placeholder="new flour" #newFlourName type="text" />
-  <input placeholder="amount" #newFlourAmount type="number" min="0" />
-  <input placeholder="hydration" #newFlourHydration type="number" min="0" max="200" value="65" step="1" />
-
-  <button type="button" (click)="
-  add(newFlourName.value, newFlourAmount.valueAsNumber, newFlourHydration.valueAsNumber);
-  newFlourName.value = '';
-  newFlourAmount.value = '';
-  newFlourHydration.value='65'">
-    add new
-  </button>
-
-</div>
