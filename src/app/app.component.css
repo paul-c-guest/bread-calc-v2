@@ -2,17 +2,48 @@
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-ul {
-  padding: 0;
-  list-style: none;
+td {
+  padding: 2px;
 }
 
 .action-button {
-  font-weight: bold;
+  font-size: large;
   width: 26px;
+  height: 26px;
 }
 
 .total {
   font-size: large;
   margin: 12px 0;
+}
+
+.table-cell-name {
+  padding-left: 4px;
+}
+
+input {
+  font-size: medium;
+  height: 20px;
+}
+
+.input-flour-name {
+  width: 160px;
+}
+
+.input-flour-amount {
+  width: 70px;
+  text-align: center;
+}
+
+.input-flour-name:hover, .input-flour-amount:hover, .input-flour-hydration:hover {
+  background-color: #fed;
+}
+
+.input-flour-hydration {
+  width: 54px;
+  text-align: center;
+}
+
+.hidden-border {
+  border: hidden;
 }

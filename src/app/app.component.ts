@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Flour } from './flour';
 
 @Component({
@@ -8,8 +8,12 @@ import { Flour } from './flour';
 })
 
 export class AppComponent implements OnInit {
-  title = 'Dough Hydro Calc';
+  title = 'Hydration Calculator';
+  
   flours: Flour[] = [];
+
+  @ViewChild('newFlourName') inputFlourName!: ElementRef<HTMLInputElement>;
+  @ViewChild('newFlourAmount') inputFlourAmount!: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
     this.flours = [
@@ -21,6 +25,8 @@ export class AppComponent implements OnInit {
   add(name: string, amount: number, hydration: number): void {
     if (name && amount && hydration) {
       this.flours.push({ name, amount, hydration } as Flour);
+      this.inputFlourName.nativeElement.value = '';
+      this.inputFlourAmount.nativeElement.value = '';
     }
   }
 
