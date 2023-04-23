@@ -8,6 +8,7 @@ import { Flour } from '../flour';
 })
 
 export class TableComponent implements OnInit {
+
   STORAGE_KEY = 'storedFlours';
   DEFAULT_HYDRATION = 70;
 
@@ -17,19 +18,21 @@ export class TableComponent implements OnInit {
   @ViewChild('newFlourAmount') inputFlourAmount!: ElementRef<HTMLInputElement>;
   @ViewChild('newFlourHydration') inputHydrationPercent!: ElementRef<HTMLInputElement>;
 
+  // check local storage for previous flours selections
   ngOnInit(): void {
+    try {
 
-    const locallyStored = localStorage.getItem(this.STORAGE_KEY);
+      const locallyStored = localStorage.getItem(this.STORAGE_KEY);
+      this.flours = locallyStored ? JSON.parse(locallyStored) : [];
 
-    this.flours = locallyStored ? JSON.parse(locallyStored) : [];
+    } catch (error) {
 
-    // preset some flours to show something while testing 
-    // this.flours = [
-    //   { name: 'White Flour', amount: 350, hydration: 80 },
-    //   { name: 'Spelt Flour', amount: 150, hydration: 60 },
-    // ]
+      localStorage.clear();
+
+    }
   }
 
+  // user click event 
   add(name: string, amount: number, hydration: number): void {
 
     if (name && amount) {
@@ -44,22 +47,28 @@ export class TableComponent implements OnInit {
       this.inputFlourAmount.nativeElement.value = '';
       this.inputHydrationPercent.nativeElement.value = '';
 
-      // update local storage
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.flours));
+      this.updateLocalStorage();
 
     }
 
   }
 
+  // user click event 
   remove(name: string): void {
     this.flours = this.flours.filter(flour => flour.name != name);
+    this.updateLocalStorage();
   }
 
   totalDry(): number {
     return this.flours.reduce((total, flour) => total + flour.amount, 0);
   }
+
   totalWet(): number {
     return this.flours.reduce((total, flour) => total + (flour.hydration * .01) * flour.amount, 0);
   }
 
-}
+  updateLocalStorage(): void {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.flours));
+  }
+
+}  
