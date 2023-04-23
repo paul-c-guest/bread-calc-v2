@@ -2,20 +2,20 @@
 <table>
 
   <!-- generate a row for each flour in array -->
-  <tr *ngFor="let flour of flours">
+  <tr *ngFor="let selection of selections">
     <td class="table-cell-name">
-      {{flour.name}}
+      {{selection.flour.name}}
     </td>
     <td class="table-cell-amount">
-      <input class="input-flour-amount hidden-border" type="number" value="{{flour.amount}}" min="0" step="5"
-        [(ngModel)]="flour.amount" (change)="updateLocalStorage()"/>
+      <input class="input-flour-amount hidden-border" type="number" value="{{selection.amount}}" min="0" step="5"
+        [(ngModel)]="selection.amount" (change)="updateLocalStorage()"/>
     </td>
     <td class="table-cell-hydration">
-      <input class="input-flour-hydration hidden-border" type="number" value="{{flour.hydration}}" min="0" max="200"
-        [(ngModel)]="flour.hydration" (change)="updateLocalStorage()"/>
+      <input class="input-flour-hydration hidden-border" type="number" value="{{selection.hydration}}" min="0" max="200"
+        [(ngModel)]="selection.hydration" (change)="updateLocalStorage()"/>
     </td>
     <td>
-      <button class="action-button" type="button" (click)="remove(flour.name)">&ndash;</button>
+      <button class="action-button" type="button" (click)="remove(selection)">&ndash;</button>
     </td>
   </tr>
 

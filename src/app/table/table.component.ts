@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Flour } from '../flour';
+import { Selection } from '../selection';
+import { Flour } from 'server/src/flour';
 
 @Component({
   selector: 'app-table',
@@ -12,7 +13,7 @@ export class TableComponent implements OnInit {
   STORAGE_KEY = 'storedFlours';
   DEFAULT_HYDRATION = 70;
 
-  flours: Flour[] = [];
+  selections: Selection[] = [];
 
   @ViewChild('newFlourName') inputFlourName!: ElementRef<HTMLInputElement>;
   @ViewChild('newFlourAmount') inputFlourAmount!: ElementRef<HTMLInputElement>;
@@ -23,7 +24,7 @@ export class TableComponent implements OnInit {
     try {
 
       const locallyStored = localStorage.getItem(this.STORAGE_KEY);
-      this.flours = locallyStored ? JSON.parse(locallyStored) : [];
+      this.selections = locallyStored ? JSON.parse(locallyStored) : [];
 
     } catch (error) {
 
@@ -40,7 +41,12 @@ export class TableComponent implements OnInit {
       // use 70% if value not provided
       hydration = hydration || this.DEFAULT_HYDRATION;
 
-      this.flours.push({ name, amount, hydration } as Flour);
+      const flour: Flour = {
+        name: name,
+        defaultHydration: hydration
+      };
+
+      this.selections.push({ flour, amount, hydration } as Selection);
 
       // clear entry fields
       this.inputFlourName.nativeElement.value = '';
@@ -54,21 +60,21 @@ export class TableComponent implements OnInit {
   }
 
   // user click event 
-  remove(name: string): void {
-    this.flours = this.flours.filter(flour => flour.name != name);
+  remove(selection: Selection): void {
+    this.selections = this.selections.filter(entry => entry != selection);
     this.updateLocalStorage();
   }
 
   totalDry(): number {
-    return this.flours.reduce((total, flour) => total + flour.amount, 0);
+    return this.selections.reduce((total, selection) => total + selection.amount, 0);
   }
 
   totalWet(): number {
-    return this.flours.reduce((total, flour) => total + (flour.hydration * .01) * flour.amount, 0);
+    return this.selections.reduce((total, selection) => total + ((selection.hydration || this.DEFAULT_HYDRATION) * .01) * selection.amount, 0);
   }
 
   updateLocalStorage(): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.flours));
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.selections));
   }
 
 }  
