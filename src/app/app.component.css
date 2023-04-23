@@ -2,8 +2,30 @@
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+nav {
+  margin: 24px 0;
+}
+
+a {
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 12px;
+  margin-inline-end: 4px;
+  text-decoration-line: none;
+  background-color: grey;
+  color: white;
+}
+
+a:hover {
+  border: 2px;
+  padding: 10px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 4px;
+}
+
 td {
-  padding: 2px;
+  padding: 4px;
 }
 
 .action-button {

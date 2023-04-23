@@ -1,43 +1,8 @@
-<h3>{{title}}</h3>
+<h3>{{ title }}</h3>
 
-<table>
+<nav>
+  <a routerLink="table">Table</a>
+  <a routerLink="config">Config</a>
+</nav>
 
-  <tr *ngFor="let flour of flours">
-    <td class="table-cell-name">
-      {{flour.name}}
-    </td>
-    <td class="table-cell-amount">
-      <input class="input-flour-amount hidden-border" type="number" value="{{flour.amount}}" min="0" step="5"
-        [(ngModel)]="flour.amount" />
-    </td>
-    <td class="table-cell-hydration">
-      <input class="input-flour-hydration hidden-border" type="number" value="{{flour.hydration}}" min="0" max="200"
-        [(ngModel)]="flour.hydration" />
-    </td>
-    <td>
-      <button class="action-button" type="button" (click)="remove(flour.name)">&ndash;</button>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <input class="input-flour-name" placeholder="new flour" #newFlourName type="text" />
-    </td>
-    <td class="table-cell-amount">
-      <input class="input-flour-amount" placeholder="weight" #newFlourAmount type="number" min="0" />
-    </td>
-    <td class="table-cell-hydration">
-      <input class="input-flour-hydration" placeholder="hydration" #newFlourHydration type="number" min="0" max="200"
-        value="65" step="1" />
-    </td>
-    <td>
-      <button class="action-button" type="button"
-        (click)="add(newFlourName.value, newFlourAmount.valueAsNumber, newFlourHydration.valueAsNumber)">+</button>
-    </td>
-  </tr>
-
-</table>
-
-<div class="total">
-  Total dry: {{ totalDry() | number }}, wet: {{ totalWet() | number }}
-</div>
+<router-outlet />
