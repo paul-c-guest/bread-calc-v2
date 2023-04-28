@@ -12,16 +12,12 @@ a {
   padding: 12px;
   margin-inline-end: 8px;
   text-decoration-line: none;
-  background-color: grey;
+  background-color: #666;
   color: white;
 }
 
 a:hover {
-  border: 2px;
-  padding: 10px;
-  border-style: solid;
-  border-color: black;
-  border-radius: 4px;
+  background-color: #643;
 }
 
 td {
@@ -29,8 +25,9 @@ td {
 }
 
 .action-button {
-  font-size: large;
-  width: 26px;
+  font-size: medium;
+  text-align: center;
+  width: 32px;
   height: 26px;
 }
 

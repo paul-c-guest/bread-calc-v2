@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Selection } from '../selection';
 import { Flour } from 'server/src/flour';
+import { FlourService } from '../flour.service';
 
 @Component({
   selector: 'app-table',
@@ -10,10 +11,16 @@ import { Flour } from 'server/src/flour';
 
 export class TableComponent implements OnInit {
 
+  constructor(private flourService: FlourService) { }
+
   STORAGE_KEY = 'storedFlours';
   DEFAULT_HYDRATION = 70;
 
+  flours$: Flour[] = [];
   selections: Selection[] = [];
+
+  dryTotal: number = 0;
+  wetTotal: number = 0;
 
   @ViewChild('newFlourName') inputFlourName!: ElementRef<HTMLInputElement>;
   @ViewChild('newFlourAmount') inputFlourAmount!: ElementRef<HTMLInputElement>;
@@ -23,6 +30,10 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     try {
 
+      this.flourService
+        .getFlours()
+        .subscribe(result => this.flours$ = result);
+
       const locallyStored = localStorage.getItem(this.STORAGE_KEY);
       this.selections = locallyStored ? JSON.parse(locallyStored) : [];
 
@@ -31,6 +42,11 @@ export class TableComponent implements OnInit {
       localStorage.clear();
 
     }
+  }
+
+  getHydration(name: string): string {
+    const result = this.flours$.find(entry => entry.name === name);
+    return result ? result.defaultHydration.toString() : '';
   }
 
   // user click event 
@@ -61,16 +77,27 @@ export class TableComponent implements OnInit {
 
   // user click event 
   remove(selection: Selection): void {
-    this.selections = this.selections.filter(entry => entry != selection);
-    this.updateLocalStorage();
+    if (confirm('remove the flour from the recipe?')) {
+
+      this.selections = this.selections.filter(entry => entry != selection);
+      this.updateLocalStorage();
+
+    }
   }
 
   totalDry(): number {
-    return this.selections.reduce((total, selection) => total + selection.amount, 0);
+    this.dryTotal = this.selections.reduce((total, selection) => total + selection.amount, 0);
+    return this.dryTotal;
   }
 
-  totalWet(): number {
-    return this.selections.reduce((total, selection) => total + ((selection.hydration || this.DEFAULT_HYDRATION) * .01) * selection.amount, 0);
+  totalWet(): string {
+    this.wetTotal = this.selections.reduce((total, selection) => total + ((selection.hydration || this.DEFAULT_HYDRATION) * .01) * selection.amount, 0);
+    return this.wetTotal.toFixed(0);
+  }
+
+  finalHydration(): string {
+    const result = (this.wetTotal / this.dryTotal) * 100;
+    return result.toFixed(1);
   }
 
   updateLocalStorage(): void {

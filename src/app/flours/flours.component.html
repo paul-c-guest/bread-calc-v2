@@ -1,0 +1,56 @@
+<table>
+
+  <!-- a row for each flour in the database -->
+  <tr *ngFor="let flour of flours$">
+
+    <td class="table-cell-name">
+      <input class="hidden-border input-flour-name" type="text" value="{{flour.name}}" #flourName
+        (keyup)="registerChange(flour, flourName.value, flourHydration.valueAsNumber)">
+    </td>
+
+    <td class="table-cell-hydration">
+      <input class="hidden-border input-flour-hydration" type="number" min="0" max="200" step="1"
+        value="{{flour.defaultHydration}}" #flourHydration
+        (change)="registerChange(flour, flourName.value, flourHydration.valueAsNumber)"
+        (keyup)="registerChange(flour, flourName.value, flourHydration.valueAsNumber)">
+    </td>
+
+    <!-- delete -->
+    <td *ngIf="!hasChanges(flour._id!.toString())">
+      <button class="action-button" type="button" title="delete" (click)="delete(flour._id!.toString())">&Cross;</button>
+    </td>
+
+    <!-- save changes -->
+    <td *ngIf="hasChanges(flour._id!.toString())">
+      <button class="action-button" type="button" title="save"
+        (click)="update(flour._id!.toString(), flourName.value, flourHydration.valueAsNumber)">&check;</button>
+    </td>
+
+    <!-- revert to saved -->
+    <td *ngIf="hasChanges(flour._id!.toString())">
+      <button class="action-button" type="button" title="undo"
+        (click)="resetMapId(flour._id!.toString());flourName.value=flour.name;flourHydration.valueAsNumber=flour.defaultHydration;">&circlearrowleft;</button>
+    </td>
+
+  </tr>
+
+  <!-- bottom row for adding a new flour -->
+  <tr>
+
+    <td class="table-cell-name">
+      <input class="input-flour-name" type="text" placeholder="new flour..." #newFlourName>
+    </td>
+
+    <td class="table-cell-hydration">
+      <input class="input-flour-hydration" type="number" min="0" max="200" step="1" placeholder="&percnt;"
+        #newFlourHydration>
+    </td>
+
+    <td>
+      <button class="action-button" type="button" title="add to db"
+        (click)="create(newFlourName.value, newFlourHydration.value)">&plus;</button>
+    </td>
+
+  </tr>
+
+</table>
