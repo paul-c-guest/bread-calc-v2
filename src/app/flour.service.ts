@@ -8,8 +8,9 @@ import { Flour } from 'server/src/flour';
 })
 
 export class FlourService {
-  private uriRoot = 'http://localhost:5200';
-  private uri = this.uriRoot + '/flours';
+  // private uriRoot = 'http://localhost:5200';
+  private uriRoot = 'https://resolute-noise-production.up.railway.app';
+  private uri = this.uriRoot + '/api/flours';
 
   private flours$: Subject<Flour[]> = new Subject();
 
