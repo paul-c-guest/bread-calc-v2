@@ -2,7 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Selection } from '../model/selection';
 import { Flour } from 'server/src/flour';
 import { FlourService } from '../flour.service';
-import { DEFAULT_HYDRATION, STORED_FLOURS_KEY } from '../shared.constants';
+import { DEFAULT_HYDRATION, STORED_FLOURS_KEY, STORED_STARTER_KEY } from '../shared.constants';
+import { Starter } from '../model/starter';
 
 @Component({
   selector: 'app-table',
@@ -16,6 +17,7 @@ export class TableComponent implements OnInit {
 
   flours$: Flour[] = [];
   selections: Selection[] = [];
+  starter: Starter = {} as Starter;
 
   dryTotal: number = 0;
   wetTotal: number = 0;
@@ -25,27 +27,34 @@ export class TableComponent implements OnInit {
   @ViewChild('newFlourHydration') inputHydrationPercent!: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
+    this.flourService
+      .getFlours()
+      .subscribe(result => this.flours$ = result);
+
+    // check local storage for previous selection data
     try {
-
-      this.flourService
-        .getFlours()
-        .subscribe(result => this.flours$ = result);
-
       const locallyStored = localStorage.getItem(STORED_FLOURS_KEY);
-
-      // check local storage for previous flours selections
       this.selections = locallyStored ? JSON.parse(locallyStored) : [];
-
     } catch (error) {
+      localStorage.removeItem(STORED_FLOURS_KEY);
+    }
 
-      localStorage.clear();
-
+    // check local storage for previous starter data 
+    try {
+      const localStarter = localStorage.getItem(STORED_STARTER_KEY);
+      this.starter = localStarter ? JSON.parse(localStarter) : {} as Starter;
+    } catch (error) {
+      localStorage.removeItem(STORED_STARTER_KEY);
     }
   }
 
   getHydration(name: string): string {
-    const result = this.flours$.find(entry => entry.name === name);
-    return result ? result.defaultHydration.toString() : '';
+    if (name == 'My Starter') {
+      return this.starter.hydration.toString();
+    } else {
+      const result = this.flours$.find(entry => entry.name === name);
+      return result ? result.defaultHydration.toString() : '';
+    }
   }
 
   // user click event 

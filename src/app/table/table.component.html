@@ -24,6 +24,7 @@
       <input class="input-flour-name" list="flourDatabase" placeholder="add flour..." #newFlourName type="text"
         (input)="newFlourHydration.value=getHydration(newFlourName.value)" />
       <datalist id="flourDatabase">
+        <option *ngIf="starter" value="My Starter" class="my-starter">
         <option *ngFor="let flour of flours$" value="{{flour.name}}">
       </datalist>
     </td>

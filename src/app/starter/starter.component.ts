@@ -29,10 +29,14 @@ export class StarterComponent implements OnInit {
   updateStarter(flourName: string, flourAmount: number, liquidAmount: number) {
     if (flourName && flourAmount && liquidAmount) {
 
-      const starter: Starter = { flourName, flourAmount, liquidAmount };
+      const hydration = (liquidAmount / flourAmount) * 100;
+
+      const starter: Starter = { flour: flourName, hydration };
 
       // make or update user starter 
       localStorage.setItem(STORED_STARTER_KEY, JSON.stringify(starter));
+
+      console.log('locally stored', starter);
 
       // clear fields on success
       this.starterFlourNameElement.nativeElement.value = '';

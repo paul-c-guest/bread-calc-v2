@@ -1,6 +1,5 @@
 * {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  zoom: 107%;
 }
 
 nav {
@@ -18,7 +17,7 @@ a {
 }
 
 a:hover {
-  background-color: #643;
+  background-color: #222;
 }
 
 td {
@@ -62,6 +61,11 @@ input {
 .input-flour-hydration {
   width: 54px;
   text-align: center;
+}
+
+.my-starter {
+
+  
 }
 
 .hidden-border {
