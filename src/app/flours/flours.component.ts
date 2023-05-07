@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Flour } from 'server/src/flour';
 import { FlourService } from '../flour.service';
+import { DEFAULT_HYDRATION, MAX_HYDRATION } from '../shared.constants';
 
 @Component({
   selector: 'app-flours',
@@ -26,8 +27,8 @@ export class FloursComponent implements OnInit {
   create(name: string, defaultHydration?: string): boolean {
     if (name) {
 
-      let parsedHydration: number = defaultHydration ? Number.parseInt(defaultHydration) : 66;
-      parsedHydration = parsedHydration > 200 ? 200 : parsedHydration;
+      let parsedHydration: number = defaultHydration ? Number.parseInt(defaultHydration) : DEFAULT_HYDRATION;
+      parsedHydration = parsedHydration > MAX_HYDRATION ? MAX_HYDRATION : parsedHydration;
 
       this.flourService
         .createFlour({ name: name, defaultHydration: parsedHydration } as Flour)
@@ -56,12 +57,12 @@ export class FloursComponent implements OnInit {
     if (confirm('delete the flour from the database?')) {
 
       this.flourService
-      .deleteFlour(id)
-      .subscribe(result => {
-        this.refreshLocalFlours();
-        this.changeMap.delete(id);
-      });
-    
+        .deleteFlour(id)
+        .subscribe(result => {
+          this.refreshLocalFlours();
+          this.changeMap.delete(id);
+        });
+
     }
   }
 

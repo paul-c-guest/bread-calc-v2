@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TableComponent } from './table/table.component';
 import { FloursComponent } from './flours/flours.component';
-
-const TABLE: string = 'table';
-const FLOURS: string = 'flours';
-const EMPTY: string = '';
+import { StarterComponent } from './starter/starter.component';
+import { FLOURS, STARTER, TABLE } from './shared.constants';
 
 let routes: Routes = [
   { path: TABLE, component: TableComponent },
-  { path: FLOURS, component: FloursComponent }, 
-  { path: EMPTY, redirectTo: TABLE, pathMatch: 'full' },
+  { path: STARTER, component: StarterComponent },
+  { path: FLOURS, component: FloursComponent },
+  { path: '', redirectTo: TABLE, pathMatch: 'full' },
   { path: '**', redirectTo: TABLE }
 ]
 

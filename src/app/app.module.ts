@@ -7,12 +7,14 @@ import { TableComponent } from './table/table.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FloursComponent } from './flours/flours.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StarterComponent } from './starter/starter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    FloursComponent
+    FloursComponent,
+    StarterComponent
   ],
   imports: [
     FormsModule,

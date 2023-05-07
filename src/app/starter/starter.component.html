@@ -1,0 +1,26 @@
+<table>
+
+  <tr>
+
+    <td>
+      <input #starterFlourName class="input-flour-name" type="text" list="flourList" placeholder="flour....">
+      <datalist id="flourList">
+        <option *ngFor="let flour of flours$">{{flour.name}}</option>
+      </datalist>
+    </td>
+
+    <td>
+      <input #starterFlourAmount class="input-flour-amount" type="number" placeholder="weight" min="0" step="10">
+    </td>
+
+    <td>
+      <input #starterLiquidAmount class="input-flour-amount" type="number" placeholder="liquid" min="0" step="10">
+    </td>
+
+    <td>
+      <button class="action-button" (click)="updateStarter(starterFlourName.value, starterFlourAmount.valueAsNumber, starterLiquidAmount.valueAsNumber)" >&plus;</button>
+    </td>
+
+  </tr>
+
+</table>

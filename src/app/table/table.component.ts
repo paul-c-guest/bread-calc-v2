@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Selection } from '../selection';
+import { Selection } from '../model/selection';
 import { Flour } from 'server/src/flour';
 import { FlourService } from '../flour.service';
+import { DEFAULT_HYDRATION, STORED_FLOURS_KEY } from '../shared.constants';
 
 @Component({
   selector: 'app-table',
@@ -13,9 +14,6 @@ export class TableComponent implements OnInit {
 
   constructor(private flourService: FlourService) { }
 
-  STORAGE_KEY = 'storedFlours';
-  DEFAULT_HYDRATION = 70;
-
   flours$: Flour[] = [];
   selections: Selection[] = [];
 
@@ -26,7 +24,6 @@ export class TableComponent implements OnInit {
   @ViewChild('newFlourAmount') inputFlourAmount!: ElementRef<HTMLInputElement>;
   @ViewChild('newFlourHydration') inputHydrationPercent!: ElementRef<HTMLInputElement>;
 
-  // check local storage for previous flours selections
   ngOnInit(): void {
     try {
 
@@ -34,7 +31,9 @@ export class TableComponent implements OnInit {
         .getFlours()
         .subscribe(result => this.flours$ = result);
 
-      const locallyStored = localStorage.getItem(this.STORAGE_KEY);
+      const locallyStored = localStorage.getItem(STORED_FLOURS_KEY);
+
+      // check local storage for previous flours selections
       this.selections = locallyStored ? JSON.parse(locallyStored) : [];
 
     } catch (error) {
@@ -55,7 +54,7 @@ export class TableComponent implements OnInit {
     if (name && amount) {
 
       // use 70% if value not provided
-      hydration = hydration || this.DEFAULT_HYDRATION;
+      hydration = hydration || DEFAULT_HYDRATION;
 
       const flour: Flour = {
         name: name,
@@ -91,7 +90,7 @@ export class TableComponent implements OnInit {
   }
 
   totalWet(): string {
-    this.wetTotal = this.selections.reduce((total, selection) => total + ((selection.hydration || this.DEFAULT_HYDRATION) * .01) * selection.amount, 0);
+    this.wetTotal = this.selections.reduce((total, selection) => total + ((selection.hydration || DEFAULT_HYDRATION) * .01) * selection.amount, 0);
     return this.wetTotal.toFixed(0);
   }
 
@@ -101,7 +100,7 @@ export class TableComponent implements OnInit {
   }
 
   updateLocalStorage(): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.selections));
+    localStorage.setItem(STORED_FLOURS_KEY, JSON.stringify(this.selections));
   }
 
 }  
