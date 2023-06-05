@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Flour } from 'server/src/flour';
+import { Flour } from 'server/src/model/flour';
 import { FlourService } from '../flour.service';
 import { DEFAULT_HYDRATION, MAX_HYDRATION } from '../shared.constants';
 

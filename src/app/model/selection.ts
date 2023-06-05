@@ -1,4 +1,4 @@
-import { Flour } from "server/src/flour";
+import { Flour } from "server/src/model/flour";
 
 export interface Selection {
   flour: Flour,

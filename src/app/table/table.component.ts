@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Selection } from '../model/selection';
-import { Flour } from 'server/src/flour';
+import { Flour } from "server/src/model/flour";
 import { FlourService } from '../flour.service';
 import { DEFAULT_HYDRATION, STORED_FLOURS_KEY, STORED_STARTER_KEY } from '../shared.constants';
 import { Starter } from '../model/starter';
@@ -72,6 +72,8 @@ export class TableComponent implements OnInit {
 
       this.selections.push({ flour, amount, hydration } as Selection);
 
+      this.selections.sort((a, b) => this.sortSelections(a, b));
+
       // clear entry fields
       this.inputFlourName.nativeElement.value = '';
       this.inputFlourAmount.nativeElement.value = '';
@@ -81,6 +83,14 @@ export class TableComponent implements OnInit {
 
     }
 
+  }
+
+  sortSelections(a: Selection, b: Selection): number {
+    if (a.amount == b.amount) {
+      return a.flour.name.toLowerCase() > b.flour.name.toLowerCase() ? -1 : 1;
+    } else {
+      return a.amount > b.amount ? -1 : 1;
+    }
   }
 
   // user click event 

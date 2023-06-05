@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FlourService } from '../flour.service';
-import { Flour } from 'server/src/flour';
+import { Flour } from "server/src/model/flour";
 import { STORED_STARTER_KEY } from '../shared.constants';
 import { Starter } from '../model/starter';
 

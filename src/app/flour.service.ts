@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { Flour } from 'server/src/flour';
+import { Flour } from 'server/src/model/flour';
 
 @Injectable({
   providedIn: 'root'

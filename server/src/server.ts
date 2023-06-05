@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import { connect } from "./database";
 import { flourRouter } from "./flour.routes";
+import { userRouter } from "./user.routes";
 import { fallback } from './middleware'
 
 // init dotenv stuff so 'process' knows about it
@@ -23,6 +24,7 @@ connect(MONGODB_URI)
     app.use(express.static('src/static'));
     app.use(cors());
     app.use("/api/flours", flourRouter);
+    app.use("/api/users", userRouter);
     app.use(fallback);
 
     app.listen(PORT, () => console.log(`server running on port ${PORT}...`));

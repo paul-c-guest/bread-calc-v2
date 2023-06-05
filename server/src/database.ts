@@ -1,5 +1,5 @@
 import * as mongodb from "mongodb";
-import { Flour } from "./flour";
+import { Flour } from "./model/flour";
 
 const DB_NAME = 'floursDb'
 const FLOURS_COLLECTION = 'commonFlours'
