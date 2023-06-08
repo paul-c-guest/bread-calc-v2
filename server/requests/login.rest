@@ -1,0 +1,31 @@
+### should succeed
+
+POST http://localhost:5200/api/login
+Content-Type: application/json
+
+{
+  "name": "ballsies",
+  "password": "abc123"
+}
+
+### should fail, incorrect password
+
+POST http://localhost:5200/api/login
+Content-Type: application/json
+
+{
+  "name": "ballsies",
+  "password": "abc123."
+}
+
+### should fail, no such user
+
+POST http://localhost:5200/api/login
+Content-Type: application/json
+
+{
+  "name": "ballsies.",
+  "password": "abc123"
+}
+
+###

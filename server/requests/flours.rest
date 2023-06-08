@@ -1,0 +1,47 @@
+### get all 
+
+GET http://localhost:5200/api/flours
+
+### add new flour
+
+POST http://localhost:5200/api/flours
+Content-Type: application/json
+
+{
+  "name": "White Flour",
+  "defaultHydration": 73
+}
+
+### update a record (if id is valid)
+
+PUT http://localhost:5200/api/flours/64470fe411699ed50847a601
+Content-Type: application/json
+
+{
+  "name": "Wholemeal, Wheat",
+  "defaultHydration": 76
+}
+
+### delete a record (if id is valid)
+
+DELETE http://localhost:5200/api/flours/647d68809d2511177a542911
+
+### add a new flour without a name - should fail
+
+POST http://localhost:5200/api/flours
+Content-Type: application/json
+
+{
+  "defaultHydration": 73
+}
+
+### add a new flour without defaultHydration - should succeed
+
+POST http://localhost:5200/api/flours
+Content-Type: application/json
+
+{
+  "name": "Flour sans Default Hydration"
+}
+
+###
