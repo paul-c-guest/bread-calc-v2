@@ -1,4 +1,3 @@
-import * as token from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 
 const saltRounds = 10;

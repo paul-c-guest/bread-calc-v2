@@ -5,6 +5,7 @@ import * as jwt from "jsonwebtoken";
 import { User } from "./model/user";
 import { timestamp } from "rxjs";
 import { time } from "console";
+import { deflate } from "zlib";
 
 export const loginRouter = express.Router();
 loginRouter.use(express.json());
@@ -56,17 +57,20 @@ loginRouter.get("/", (req, res) => {
     }
 
   } catch (error) {
-
     // console.log(error.name);
 
     switch (error.name) {
-     
+
       case jwt.TokenExpiredError.name:
-        console.log("token expired");
+        // console.log("token expired");
         return res.status(401).send(false);
 
       case jwt.JsonWebTokenError.name:
-        console.log("token error");
+        // console.log("token error");
+        return res.status(400).send(false);
+
+      default:
+        console.log(error);
         return res.status(400).send(false);
 
     }
